@@ -1,12 +1,15 @@
 import * as Core from '@actions/core'
-import * as Exec from '@actions/exec'
-import path from 'path'
+import {readSync} from 'to-vfile'
+import {retext} from 'retext'
+import {reporter} from 'vfile-reporter'
 
-export async function action(
-  core: typeof Core,
-  exec: typeof Exec
-): Promise<void> {
-  const matcherPath = path.join(__dirname, '../', 'mypy.json')
-  core.info(`##[add-matcher]${matcherPath}`)
-  await exec.exec('mypy', ['test'])
+// eslint-disable-next-line @typescript-eslint/no-require-imports,@typescript-eslint/no-var-requires
+const googlestyleguide = require('retext-google-styleguide')
+
+export async function action(core: typeof Core): Promise<void> {
+  retext()
+    .use(googlestyleguide)
+    .process(readSync('README.md'), function (err, file) {
+      core.error(reporter(err || file))
+    })
 }

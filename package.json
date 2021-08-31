@@ -25,7 +25,10 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.4.0",
-    "@actions/exec": "^1.1.0"
+    "retext": "^8.1.0",
+    "retext-google-styleguide": "^1.0.0",
+    "to-vfile": "^7.2.2",
+    "vfile-reporter": "^7.0.2"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
